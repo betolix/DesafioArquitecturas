@@ -64,8 +64,11 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     // coil
     implementation("io.coil-kt:coil-compose:2.2.2")
-
-
+    // viewModel compose
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
+    // Para utilizar el observeAsState
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.2")
+    implementation("androidx.compose.runtime:runtime-livedata:1.5.3")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
