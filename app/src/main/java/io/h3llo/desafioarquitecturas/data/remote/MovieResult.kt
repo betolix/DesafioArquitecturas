@@ -1,4 +1,4 @@
-package io.h3llo.desafioarquitecturas
+package io.h3llo.desafioarquitecturas.data.remote
 
 data class MovieResult(
     val page: Int,

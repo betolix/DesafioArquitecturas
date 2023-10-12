@@ -1,4 +1,4 @@
-package io.h3llo.desafioarquitecturas
+package io.h3llo.desafioarquitecturas.data.remote
 
 import retrofit2.http.GET
 

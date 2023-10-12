@@ -1,4 +1,6 @@
-package io.h3llo.desafioarquitecturas
+package io.h3llo.desafioarquitecturas.data.remote
+
+import io.h3llo.desafioarquitecturas.data.local.LocalMovie
 
 data class ServerMovie(
     val adult: Boolean,
@@ -16,4 +18,12 @@ data class ServerMovie(
     val vote_average: Double,
     val vote_count: Int,
     val favorite: Boolean = false
+)
+
+fun ServerMovie.toLocalMovie() = LocalMovie(
+    id = 0,
+    title = title,
+    overview = overview,
+    posterPath = poster_path,
+    favorite = favorite
 )
