@@ -4,12 +4,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import io.h3llo.desafioarquitecturas.data.Movie
 import io.h3llo.desafioarquitecturas.data.local.MoviesDao
+import io.h3llo.desafioarquitecturas.data.local.toLocalMovie
 import io.h3llo.desafioarquitecturas.data.local.toMovie
 import io.h3llo.desafioarquitecturas.data.remote.MoviesService
-import io.h3llo.desafioarquitecturas.data.remote.ServerMovie
 import io.h3llo.desafioarquitecturas.data.remote.toLocalMovie
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -51,21 +52,26 @@ class HomeViewModel(private val dao: MoviesDao) : ViewModel() {
                 )
             }
 
+            dao.getMovies().collect{ movies ->
 
-            _state.value = UiState(
-                loading = false,
-                movies = dao.getMovies().map { it.toMovie() }
-            )
-
+                _state.value = UiState(
+                    loading = false,
+                    movies = movies.map { it.toMovie() } //dao.getMovies().map { it.toMovie() }
+                )
+            }
         }
 
     }
 
     fun onMovieClick(movie: Movie) {
+        /*
         val movies = _state.value.movies.toMutableList()
         movies.replaceAll { if (it.id == movie.id) movie.copy(favorite = !movie.favorite) else it }
-
         _state.value = _state.value.copy(movies = movies )
+        */
+        viewModelScope.launch{
+            dao.updateMovie(movie.copy(favorite = !movie.favorite).toLocalMovie())
+        }
 
     }
 

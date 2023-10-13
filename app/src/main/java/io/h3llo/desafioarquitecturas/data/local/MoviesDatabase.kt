@@ -10,6 +10,7 @@ import androidx.room.RoomDatabase
 import androidx.room.Update
 import io.h3llo.desafioarquitecturas.data.Movie
 import io.h3llo.desafioarquitecturas.data.remote.ServerMovie
+import kotlinx.coroutines.flow.Flow
 
 @Database(entities = [LocalMovie::class], version=1)
 abstract class MoviesDatabase: RoomDatabase() {
@@ -19,7 +20,7 @@ abstract class MoviesDatabase: RoomDatabase() {
 @Dao
 interface MoviesDao{
     @Query("SELECT * FROM LocalMovie")
-    suspend fun getMovies(): List<LocalMovie>
+    fun getMovies(): Flow<List<LocalMovie>>
 
     @Insert
     suspend fun insertAll(movies: List<LocalMovie>)
@@ -41,6 +42,14 @@ data class LocalMovie(
 )
 
 fun LocalMovie.toMovie() = Movie(
+    id = id,
+    title = title,
+    overview = overview,
+    posterPath = posterPath,
+    favorite = favorite
+)
+
+fun Movie.toLocalMovie() = LocalMovie(
     id = id,
     title = title,
     overview = overview,
