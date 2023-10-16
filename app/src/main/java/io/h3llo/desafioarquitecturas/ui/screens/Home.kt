@@ -32,16 +32,17 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import io.h3llo.desafioarquitecturas.data.Movie
+import io.h3llo.desafioarquitecturas.data.MoviesRepository
 import io.h3llo.desafioarquitecturas.data.local.MoviesDao
 import io.h3llo.desafioarquitecturas.data.remote.ServerMovie
 import io.h3llo.desafioarquitecturas.ui.theme.DesafioArquitecturasTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Home(moviesDao: MoviesDao) {
+fun Home(moviesRepository: MoviesRepository) {
     DesafioArquitecturasTheme {
 
-        val viewModel : HomeViewModel = viewModel{ HomeViewModel(moviesDao) }
+        val viewModel : HomeViewModel = viewModel{ HomeViewModel(moviesRepository) }
         val state by viewModel.state.collectAsState()
 
         // A surface container using the 'background' color from the theme

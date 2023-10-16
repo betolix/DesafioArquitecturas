@@ -1,5 +1,6 @@
 package io.h3llo.desafioarquitecturas.data.remote
 
+import io.h3llo.desafioarquitecturas.data.Movie
 import io.h3llo.desafioarquitecturas.data.local.LocalMovie
 
 data class ServerMovie(
@@ -20,7 +21,7 @@ data class ServerMovie(
     val favorite: Boolean = false
 )
 
-fun ServerMovie.toLocalMovie() = LocalMovie(
+fun ServerMovie.toMovie() = Movie(
     id = 0,
     title = title,
     overview = overview,
